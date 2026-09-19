@@ -1,0 +1,11 @@
+nombre,tipo_mascota,edad_recomendada,categoria
+Comida para perros,perro,joven,alimentacion
+Comida para gatos,gato,joven,alimentacion
+Juguete para perros,perro,todo,accesorios
+Juguete para gatos,gato,todo,accesorios
+Cama para perros,perro,todo,muebles
+Cama para gatos,gato,todo,muebles
+Collar para perros,perro,todo,accesorios
+Arena para gatos,gato,todo,accesorios
+Snacks para perros,perro,joven,alimentacion
+Snacks para gatos,gato,joven,alimentacion

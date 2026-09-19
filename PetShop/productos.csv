@@ -1,0 +1,201 @@
+id_producto,nombre,marca,tipo_mascota,edad_recomendada,tamano,categoria,subcategoria,nivel_precio,precio,descripcion
+1,Purina Pro Plan Puppy Razas Medianas,Purina,Perro,Cachorro,Mediano,Alimentacion,Especializado,Medio,5.37,Purina Pro Plan Puppy Razas Medianas diseñado para perro en etapa cachorro.
+2,Royal Canin Puppy Small Dog,Royal Canin,Perro,Cachorro,Mediano,Alimentacion,Especializado,Alto,5.74,Royal Canin Puppy Small Dog diseñado para perro en etapa cachorro.
+3,Kong Puppy Classic Mordedor,Kong,Perro,Cachorro,Mediano,Juguetes,Especializado,Medio,6.11,Kong Puppy Classic Mordedor diseñado para perro en etapa cachorro.
+4,Shampoo Puppy Pet Society,Pet Society,Perro,Cachorro,Mediano,Higiene,Especializado,Alto,6.48,Shampoo Puppy Pet Society diseñado para perro en etapa cachorro.
+5,NexGard Puppy Antipulgas,NexGard,Perro,Cachorro,Mediano,Salud,Especializado,Medio,6.85,NexGard Puppy Antipulgas diseñado para perro en etapa cachorro.
+6,Collar Ajustable Ferplast Puppy,Ferplast,Perro,Cachorro,Mediano,Accesorios,Especializado,Alto,7.22,Collar Ajustable Ferplast Puppy diseñado para perro en etapa cachorro.
+7,Purina Dog Chow Adultos Carne,Purina,Perro,Adulto,Mediano,Alimentacion,Especializado,Medio,7.59,Purina Dog Chow Adultos Carne diseñado para perro en etapa adulto.
+8,Royal Canin Adult Medium,Royal Canin,Perro,Adulto,Mediano,Alimentacion,Especializado,Alto,7.96,Royal Canin Adult Medium diseñado para perro en etapa adulto.
+9,Taste of the Wild Pacific Stream,Taste of the Wild,Perro,Adulto,Mediano,Alimentacion,Especializado,Medio,8.33,Taste of the Wild Pacific Stream diseñado para perro en etapa adulto.
+10,NexGard Spectra Antipulgas,NexGard,Perro,Adulto,Mediano,Salud,Especializado,Alto,8.7,NexGard Spectra Antipulgas diseñado para perro en etapa adulto.
+11,Correa Reflectiva Ferplast,Ferplast,Perro,Adulto,Mediano,Accesorios,Especializado,Medio,9.07,Correa Reflectiva Ferplast diseñado para perro en etapa adulto.
+12,Pelota Kong Extreme,Kong,Perro,Adulto,Mediano,Juguetes,Especializado,Alto,9.44,Pelota Kong Extreme diseñado para perro en etapa adulto.
+13,Royal Canin Mature Adult 8+,Royal Canin,Perro,Senior,Mediano,Alimentacion,Especializado,Medio,9.81,Royal Canin Mature Adult 8+ diseñado para perro en etapa senior.
+14,Hill's Science Diet Senior Dog,Hill's,Perro,Senior,Mediano,Alimentacion,Especializado,Alto,10.18,Hill's Science Diet Senior Dog diseñado para perro en etapa senior.
+15,Cosequin Suplemento Articular,Cosequin,Perro,Senior,Mediano,Salud,Especializado,Medio,10.55,Cosequin Suplemento Articular diseñado para perro en etapa senior.
+16,Cama Ortopedica Memory Foam,Petmate,Perro,Senior,Mediano,Accesorios,Especializado,Alto,10.92,Cama Ortopedica Memory Foam diseñado para perro en etapa senior.
+17,Shampoo Senior Sensitive,Pet Society,Perro,Senior,Mediano,Higiene,Especializado,Medio,11.29,Shampoo Senior Sensitive diseñado para perro en etapa senior.
+18,Juguete Suave Senior,Kong,Perro,Senior,Mediano,Juguetes,Especializado,Alto,11.66,Juguete Suave Senior diseñado para perro en etapa senior.
+19,Royal Canin Kitten,Royal Canin,Gato,Cachorro,Pequeño,Alimentacion,Especializado,Medio,12.03,Royal Canin Kitten diseñado para gato en etapa cachorro.
+20,Purina One Healthy Kitten,Purina,Gato,Cachorro,Pequeño,Alimentacion,Especializado,Alto,12.4,Purina One Healthy Kitten diseñado para gato en etapa cachorro.
+21,Arena Sanitaria Catit Kitten,Catit,Gato,Cachorro,Pequeño,Higiene,Especializado,Medio,12.77,Arena Sanitaria Catit Kitten diseñado para gato en etapa cachorro.
+22,Juguete Caña Plumas,Catit,Gato,Cachorro,Pequeño,Juguetes,Especializado,Alto,13.14,Juguete Caña Plumas diseñado para gato en etapa cachorro.
+23,Rascador Junior Gato,Ferplast,Gato,Cachorro,Pequeño,Accesorios,Especializado,Medio,13.51,Rascador Junior Gato diseñado para gato en etapa cachorro.
+24,Vitaminas Kitten Omega,Nutrivet,Gato,Cachorro,Pequeño,Salud,Especializado,Alto,13.88,Vitaminas Kitten Omega diseñado para gato en etapa cachorro.
+25,Whiskas Adulto Salmon,Whiskas,Gato,Adulto,Pequeño,Alimentacion,Especializado,Medio,14.25,Whiskas Adulto Salmon diseñado para gato en etapa adulto.
+26,Purina Pro Plan Adult Cat,Purina,Gato,Adulto,Pequeño,Alimentacion,Especializado,Alto,14.62,Purina Pro Plan Adult Cat diseñado para gato en etapa adulto.
+27,Arena Aglomerante Ever Clean,Ever Clean,Gato,Adulto,Pequeño,Higiene,Especializado,Medio,14.99,Arena Aglomerante Ever Clean diseñado para gato en etapa adulto.
+28,Rascador Catit Vesper,Catit,Gato,Adulto,Pequeño,Accesorios,Especializado,Alto,15.36,Rascador Catit Vesper diseñado para gato en etapa adulto.
+29,Juguete Ratón Interactivo,PetSafe,Gato,Adulto,Pequeño,Juguetes,Especializado,Medio,15.73,Juguete Ratón Interactivo diseñado para gato en etapa adulto.
+30,Pasta Dental Felina,Virbac,Gato,Adulto,Pequeño,Salud,Especializado,Alto,16.1,Pasta Dental Felina diseñado para gato en etapa adulto.
+31,Royal Canin Ageing 12+ Cat,Royal Canin,Gato,Senior,Pequeño,Alimentacion,Especializado,Medio,16.47,Royal Canin Ageing 12+ Cat diseñado para gato en etapa senior.
+32,Hill's Senior Cat Food,Hill's,Gato,Senior,Pequeño,Alimentacion,Especializado,Alto,16.84,Hill's Senior Cat Food diseñado para gato en etapa senior.
+33,Suplemento Omega 3 Felino,Nutrivet,Gato,Senior,Pequeño,Salud,Especializado,Medio,17.21,Suplemento Omega 3 Felino diseñado para gato en etapa senior.
+34,Cama Felina Ortopedica,Petmate,Gato,Senior,Pequeño,Accesorios,Especializado,Alto,17.58,Cama Felina Ortopedica diseñado para gato en etapa senior.
+35,Arena Premium Senior,Ever Clean,Gato,Senior,Pequeño,Higiene,Especializado,Medio,17.95,Arena Premium Senior diseñado para gato en etapa senior.
+36,Juguete Interactivo Senior,Catit,Gato,Senior,Pequeño,Juguetes,Especializado,Alto,18.32,Juguete Interactivo Senior diseñado para gato en etapa senior.
+37,TetraMin Baby Peces Pequeños,Tetra,Pez,Cachorro,Pequeño,Alimentacion,Especializado,Medio,18.69,TetraMin Baby Peces Pequeños diseñado para pez en etapa cachorro.
+38,Sera Micron Alimento Juvenil,Sera,Pez,Cachorro,Pequeño,Alimentacion,Especializado,Alto,19.06,Sera Micron Alimento Juvenil diseñado para pez en etapa cachorro.
+39,Acuario Starter 20L,Marina,Pez,Cachorro,Pequeño,Accesorios,Especializado,Medio,19.43,Acuario Starter 20L diseñado para pez en etapa cachorro.
+40,Decoracion Plantas Acuaticas,Marina,Pez,Cachorro,Pequeño,Accesorios,Especializado,Alto,19.8,Decoracion Plantas Acuaticas diseñado para pez en etapa cachorro.
+41,Vitaminas Juveniles Fish,Sera,Pez,Cachorro,Pequeño,Salud,Especializado,Medio,20.17,Vitaminas Juveniles Fish diseñado para pez en etapa cachorro.
+42,Tetra Tropical Flakes,Tetra,Pez,Adulto,Pequeño,Alimentacion,Especializado,Alto,20.54,Tetra Tropical Flakes diseñado para pez en etapa adulto.
+43,Sera Goldy Granulado,Sera,Pez,Adulto,Pequeño,Alimentacion,Especializado,Medio,20.91,Sera Goldy Granulado diseñado para pez en etapa adulto.
+44,Seachem Prime Acondicionador,Seachem,Pez,Adulto,Pequeño,Salud,Especializado,Alto,21.28,Seachem Prime Acondicionador diseñado para pez en etapa adulto.
+45,Filtro Marina 100,Marina,Pez,Adulto,Pequeño,Accesorios,Especializado,Medio,21.65,Filtro Marina 100 diseñado para pez en etapa adulto.
+46,Luz LED Acuario Aqua,Marina,Pez,Adulto,Pequeño,Accesorios,Especializado,Alto,22.02,Luz LED Acuario Aqua diseñado para pez en etapa adulto.
+47,Tetra Pro Energy Senior Fish,Tetra,Pez,Senior,Pequeño,Alimentacion,Especializado,Medio,22.39,Tetra Pro Energy Senior Fish diseñado para pez en etapa senior.
+48,Sera Fishtamin Vitaminas,Sera,Pez,Senior,Pequeño,Salud,Especializado,Alto,22.76,Sera Fishtamin Vitaminas diseñado para pez en etapa senior.
+49,Filtro Eheim Compact,Eheim,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,23.13,Filtro Eheim Compact diseñado para pez en etapa senior.
+50,Acondicionador Agua Premium,Seachem,Pez,Senior,Pequeño,Salud,Especializado,Alto,23.5,Acondicionador Agua Premium diseñado para pez en etapa senior.
+51,Nutribird A21 Papilla,Nutribird,Ave,Cachorro,Pequeño,Alimentacion,Especializado,Medio,23.87,Nutribird A21 Papilla diseñado para ave en etapa cachorro.
+52,Kaytee Exact Hand Feeding,Kaytee,Ave,Cachorro,Pequeño,Alimentacion,Especializado,Alto,24.24,Kaytee Exact Hand Feeding diseñado para ave en etapa cachorro.
+53,Juguete Campana Ave,Ferplast,Ave,Cachorro,Pequeño,Juguetes,Especializado,Medio,24.61,Juguete Campana Ave diseñado para ave en etapa cachorro.
+54,Percha Natural Madera,Ferplast,Ave,Cachorro,Pequeño,Accesorios,Especializado,Alto,24.98,Percha Natural Madera diseñado para ave en etapa cachorro.
+55,Kaytee Supreme Bird Food,Kaytee,Ave,Adulto,Pequeño,Alimentacion,Especializado,Medio,25.35,Kaytee Supreme Bird Food diseñado para ave en etapa adulto.
+56,Vitakraft Menu Canarios,Vitakraft,Ave,Adulto,Pequeño,Alimentacion,Especializado,Alto,25.72,Vitakraft Menu Canarios diseñado para ave en etapa adulto.
+57,Jaula Ferplast Piano,Ferplast,Ave,Adulto,Pequeño,Accesorios,Especializado,Medio,26.09,Jaula Ferplast Piano diseñado para ave en etapa adulto.
+58,Juguete Espejo Ave,Vitakraft,Ave,Adulto,Pequeño,Juguetes,Especializado,Alto,26.46,Juguete Espejo Ave diseñado para ave en etapa adulto.
+59,Vitaminas Nekton S,Nekton,Ave,Adulto,Pequeño,Salud,Especializado,Medio,26.83,Vitaminas Nekton S diseñado para ave en etapa adulto.
+60,Vitakraft Senior Bird Formula,Vitakraft,Ave,Senior,Pequeño,Alimentacion,Especializado,Alto,27.2,Vitakraft Senior Bird Formula diseñado para ave en etapa senior.
+61,Nekton Senior Vitaminas,Nekton,Ave,Senior,Pequeño,Salud,Especializado,Medio,27.57,Nekton Senior Vitaminas diseñado para ave en etapa senior.
+62,Percha Ergonomica Ave,Ferplast,Ave,Senior,Pequeño,Accesorios,Especializado,Alto,27.94,Percha Ergonomica Ave diseñado para ave en etapa senior.
+63,Versele Laga Hamster Junior,Versele Laga,Hamster,Cachorro,Pequeño,Alimentacion,Especializado,Medio,28.31,Versele Laga Hamster Junior diseñado para hamster en etapa cachorro.
+64,Mezcla Semillas Junior,Vitakraft,Hamster,Cachorro,Pequeño,Alimentacion,Especializado,Alto,28.68,Mezcla Semillas Junior diseñado para hamster en etapa cachorro.
+65,Rueda Silent Spinner,Kaytee,Hamster,Cachorro,Pequeño,Juguetes,Especializado,Medio,29.05,Rueda Silent Spinner diseñado para hamster en etapa cachorro.
+66,Cama Natural Hamster,Vitakraft,Hamster,Cachorro,Pequeño,Higiene,Especializado,Alto,29.42,Cama Natural Hamster diseñado para hamster en etapa cachorro.
+67,Vitakraft Hamster Menu,Vitakraft,Hamster,Adulto,Pequeño,Alimentacion,Especializado,Medio,29.79,Vitakraft Hamster Menu diseñado para hamster en etapa adulto.
+68,Snack Frutas Secas Hamster,Vitakraft,Hamster,Adulto,Pequeño,Alimentacion,Especializado,Alto,30.16,Snack Frutas Secas Hamster diseñado para hamster en etapa adulto.
+69,Jaula Modular Hamster,Ferplast,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,30.53,Jaula Modular Hamster diseñado para hamster en etapa adulto.
+70,Rueda Ejercicio Premium,Kaytee,Hamster,Adulto,Pequeño,Juguetes,Especializado,Alto,30.9,Rueda Ejercicio Premium diseñado para hamster en etapa adulto.
+71,Alimento Senior Roedor,Versele Laga,Hamster,Senior,Pequeño,Alimentacion,Especializado,Medio,31.27,Alimento Senior Roedor diseñado para hamster en etapa senior.
+72,Suplemento Senior Roedor,Nutrivet,Hamster,Senior,Pequeño,Salud,Especializado,Alto,31.64,Suplemento Senior Roedor diseñado para hamster en etapa senior.
+73,Cama Absorbente Natural,Vitakraft,Hamster,Senior,Pequeño,Higiene,Especializado,Medio,32.01,Cama Absorbente Natural diseñado para hamster en etapa senior.
+74,Oxbow Young Rabbit Food,Oxbow,Conejo,Cachorro,Pequeño,Alimentacion,Especializado,Alto,32.38,Oxbow Young Rabbit Food diseñado para conejo en etapa cachorro.
+75,Heno Timothy Junior,Oxbow,Conejo,Cachorro,Pequeño,Alimentacion,Especializado,Medio,32.75,Heno Timothy Junior diseñado para conejo en etapa cachorro.
+76,Juguete Madera Conejo,Ferplast,Conejo,Cachorro,Pequeño,Juguetes,Especializado,Alto,33.12,Juguete Madera Conejo diseñado para conejo en etapa cachorro.
+77,Cepillo Junior Conejo,Ferplast,Conejo,Cachorro,Pequeño,Higiene,Especializado,Medio,33.49,Cepillo Junior Conejo diseñado para conejo en etapa cachorro.
+78,Oxbow Adult Rabbit Food,Oxbow,Conejo,Adulto,Pequeño,Alimentacion,Especializado,Alto,33.86,Oxbow Adult Rabbit Food diseñado para conejo en etapa adulto.
+79,Heno Timothy Premium,Oxbow,Conejo,Adulto,Pequeño,Alimentacion,Especializado,Medio,34.23,Heno Timothy Premium diseñado para conejo en etapa adulto.
+80,Cepillo Conejo Ferplast,Ferplast,Conejo,Adulto,Pequeño,Higiene,Especializado,Alto,34.6,Cepillo Conejo Ferplast diseñado para conejo en etapa adulto.
+81,Casa Conejo Interior,Ferplast,Conejo,Adulto,Pequeño,Accesorios,Especializado,Medio,34.97,Casa Conejo Interior diseñado para conejo en etapa adulto.
+82,Oxbow Senior Rabbit,Oxbow,Conejo,Senior,Pequeño,Alimentacion,Especializado,Alto,35.34,Oxbow Senior Rabbit diseñado para conejo en etapa senior.
+83,Suplemento Digestivo Conejo,Oxbow,Conejo,Senior,Pequeño,Salud,Especializado,Medio,35.71,Suplemento Digestivo Conejo diseñado para conejo en etapa senior.
+84,Cama Suave Conejo,Ferplast,Conejo,Senior,Pequeño,Accesorios,Especializado,Alto,36.08,Cama Suave Conejo diseñado para conejo en etapa senior.
+85,Snacks Dentales,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,25.85,Snacks Dentales recomendado para perro cachorro.
+86,Rascador Torre,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,26.06,Rascador Torre recomendado para gato adulto.
+87,Red Captura Peces,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,26.27,Red Captura Peces recomendado para pez senior.
+88,Campana Natural,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,26.48,Campana Natural recomendado para ave cachorro.
+89,Tubo Conexion Jaula,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,26.69,Tubo Conexion Jaula recomendado para hamster adulto.
+90,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,26.9,Bebedero Automatico recomendado para conejo senior.
+91,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,27.11,Protector Almohadillas recomendado para perro cachorro.
+92,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,27.32,Cepillo Pelo Largo recomendado para gato adulto.
+93,Grava Decorativa Acuario,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,27.53,Grava Decorativa Acuario recomendado para pez senior.
+94,Baño Para Ave,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,27.74,Baño Para Ave recomendado para ave cachorro.
+95,Casa Madera,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,27.95,Casa Madera recomendado para hamster adulto.
+96,Corta Uñas Conejo,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,28.16,Corta Uñas Conejo recomendado para conejo senior.
+97,Snacks Dentales,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,28.37,Snacks Dentales recomendado para perro cachorro.
+98,Rascador Torre,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,28.58,Rascador Torre recomendado para gato adulto.
+99,Red Captura Peces,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,28.79,Red Captura Peces recomendado para pez senior.
+100,Campana Natural,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,29.0,Campana Natural recomendado para ave cachorro.
+101,Tubo Conexion Jaula,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,29.21,Tubo Conexion Jaula recomendado para hamster adulto.
+102,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,29.42,Bebedero Automatico recomendado para conejo senior.
+103,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,29.63,Protector Almohadillas recomendado para perro cachorro.
+104,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,29.84,Cepillo Pelo Largo recomendado para gato adulto.
+105,Grava Decorativa Acuario,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,30.05,Grava Decorativa Acuario recomendado para pez senior.
+106,Baño Para Ave,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,30.26,Baño Para Ave recomendado para ave cachorro.
+107,Casa Madera,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,30.47,Casa Madera recomendado para hamster adulto.
+108,Corta Uñas Conejo,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,30.68,Corta Uñas Conejo recomendado para conejo senior.
+109,Snacks Dentales,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,30.89,Snacks Dentales recomendado para perro cachorro.
+110,Rascador Torre,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,31.1,Rascador Torre recomendado para gato adulto.
+111,Red Captura Peces,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,31.31,Red Captura Peces recomendado para pez senior.
+112,Campana Natural,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,31.52,Campana Natural recomendado para ave cachorro.
+113,Tubo Conexion Jaula,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,31.73,Tubo Conexion Jaula recomendado para hamster adulto.
+114,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,31.94,Bebedero Automatico recomendado para conejo senior.
+115,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,32.15,Protector Almohadillas recomendado para perro cachorro.
+116,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,32.36,Cepillo Pelo Largo recomendado para gato adulto.
+117,Grava Decorativa Acuario,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,32.57,Grava Decorativa Acuario recomendado para pez senior.
+118,Baño Para Ave,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,32.78,Baño Para Ave recomendado para ave cachorro.
+119,Casa Madera,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,32.99,Casa Madera recomendado para hamster adulto.
+120,Corta Uñas Conejo,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,33.2,Corta Uñas Conejo recomendado para conejo senior.
+121,Snacks Dentales,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,33.41,Snacks Dentales recomendado para perro cachorro.
+122,Rascador Torre,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,33.62,Rascador Torre recomendado para gato adulto.
+123,Red Captura Peces,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,33.83,Red Captura Peces recomendado para pez senior.
+124,Campana Natural,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,34.04,Campana Natural recomendado para ave cachorro.
+125,Tubo Conexion Jaula,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,34.25,Tubo Conexion Jaula recomendado para hamster adulto.
+126,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,34.46,Bebedero Automatico recomendado para conejo senior.
+127,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,34.67,Protector Almohadillas recomendado para perro cachorro.
+128,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,34.88,Cepillo Pelo Largo recomendado para gato adulto.
+129,Grava Decorativa Acuario,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,35.09,Grava Decorativa Acuario recomendado para pez senior.
+130,Baño Para Ave,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,35.3,Baño Para Ave recomendado para ave cachorro.
+131,Casa Madera,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,35.51,Casa Madera recomendado para hamster adulto.
+132,Corta Uñas Conejo,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,35.72,Corta Uñas Conejo recomendado para conejo senior.
+133,Snacks Dentales,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,35.93,Snacks Dentales recomendado para perro cachorro.
+134,Rascador Torre,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,36.14,Rascador Torre recomendado para gato adulto.
+135,Red Captura Peces,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,36.35,Red Captura Peces recomendado para pez senior.
+136,Campana Natural,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,36.56,Campana Natural recomendado para ave cachorro.
+137,Tubo Conexion Jaula,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,36.77,Tubo Conexion Jaula recomendado para hamster adulto.
+138,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,36.98,Bebedero Automatico recomendado para conejo senior.
+139,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,37.19,Protector Almohadillas recomendado para perro cachorro.
+140,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,37.4,Cepillo Pelo Largo recomendado para gato adulto.
+141,Grava Decorativa Acuario,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,37.61,Grava Decorativa Acuario recomendado para pez senior.
+142,Baño Para Ave,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,37.82,Baño Para Ave recomendado para ave cachorro.
+143,Casa Madera,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,38.03,Casa Madera recomendado para hamster adulto.
+144,Corta Uñas Conejo,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,38.24,Corta Uñas Conejo recomendado para conejo senior.
+145,Snacks Dentales,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,38.45,Snacks Dentales recomendado para perro cachorro.
+146,Rascador Torre,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,38.66,Rascador Torre recomendado para gato adulto.
+147,Red Captura Peces,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,38.87,Red Captura Peces recomendado para pez senior.
+148,Campana Natural,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,39.08,Campana Natural recomendado para ave cachorro.
+149,Tubo Conexion Jaula,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,39.29,Tubo Conexion Jaula recomendado para hamster adulto.
+150,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,39.5,Bebedero Automatico recomendado para conejo senior.
+151,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,39.71,Protector Almohadillas recomendado para perro cachorro.
+152,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,39.92,Cepillo Pelo Largo recomendado para gato adulto.
+153,Grava Decorativa Acuario,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,40.13,Grava Decorativa Acuario recomendado para pez senior.
+154,Baño Para Ave,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,40.34,Baño Para Ave recomendado para ave cachorro.
+155,Casa Madera,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,40.55,Casa Madera recomendado para hamster adulto.
+156,Corta Uñas Conejo,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,40.76,Corta Uñas Conejo recomendado para conejo senior.
+157,Snacks Dentales,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,40.97,Snacks Dentales recomendado para perro cachorro.
+158,Rascador Torre,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,41.18,Rascador Torre recomendado para gato adulto.
+159,Red Captura Peces,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,41.39,Red Captura Peces recomendado para pez senior.
+160,Campana Natural,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,41.6,Campana Natural recomendado para ave cachorro.
+161,Tubo Conexion Jaula,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,41.81,Tubo Conexion Jaula recomendado para hamster adulto.
+162,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,42.02,Bebedero Automatico recomendado para conejo senior.
+163,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,42.23,Protector Almohadillas recomendado para perro cachorro.
+164,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,42.44,Cepillo Pelo Largo recomendado para gato adulto.
+165,Grava Decorativa Acuario,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,42.65,Grava Decorativa Acuario recomendado para pez senior.
+166,Baño Para Ave,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,42.86,Baño Para Ave recomendado para ave cachorro.
+167,Casa Madera,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,43.07,Casa Madera recomendado para hamster adulto.
+168,Corta Uñas Conejo,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,43.28,Corta Uñas Conejo recomendado para conejo senior.
+169,Snacks Dentales,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,43.49,Snacks Dentales recomendado para perro cachorro.
+170,Rascador Torre,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,43.7,Rascador Torre recomendado para gato adulto.
+171,Red Captura Peces,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,43.91,Red Captura Peces recomendado para pez senior.
+172,Campana Natural,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,44.12,Campana Natural recomendado para ave cachorro.
+173,Tubo Conexion Jaula,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,44.33,Tubo Conexion Jaula recomendado para hamster adulto.
+174,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,44.54,Bebedero Automatico recomendado para conejo senior.
+175,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,44.75,Protector Almohadillas recomendado para perro cachorro.
+176,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,44.96,Cepillo Pelo Largo recomendado para gato adulto.
+177,Grava Decorativa Acuario,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,45.17,Grava Decorativa Acuario recomendado para pez senior.
+178,Baño Para Ave,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,45.38,Baño Para Ave recomendado para ave cachorro.
+179,Casa Madera,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,45.59,Casa Madera recomendado para hamster adulto.
+180,Corta Uñas Conejo,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,45.8,Corta Uñas Conejo recomendado para conejo senior.
+181,Snacks Dentales,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,46.01,Snacks Dentales recomendado para perro cachorro.
+182,Rascador Torre,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,46.22,Rascador Torre recomendado para gato adulto.
+183,Red Captura Peces,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,46.43,Red Captura Peces recomendado para pez senior.
+184,Campana Natural,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,46.64,Campana Natural recomendado para ave cachorro.
+185,Tubo Conexion Jaula,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,46.85,Tubo Conexion Jaula recomendado para hamster adulto.
+186,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,47.06,Bebedero Automatico recomendado para conejo senior.
+187,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,47.27,Protector Almohadillas recomendado para perro cachorro.
+188,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,47.48,Cepillo Pelo Largo recomendado para gato adulto.
+189,Grava Decorativa Acuario,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,47.69,Grava Decorativa Acuario recomendado para pez senior.
+190,Baño Para Ave,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,47.9,Baño Para Ave recomendado para ave cachorro.
+191,Casa Madera,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,48.11,Casa Madera recomendado para hamster adulto.
+192,Corta Uñas Conejo,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,48.32,Corta Uñas Conejo recomendado para conejo senior.
+193,Snacks Dentales,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,48.53,Snacks Dentales recomendado para perro cachorro.
+194,Rascador Torre,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,48.74,Rascador Torre recomendado para gato adulto.
+195,Red Captura Peces,Marca Especializada,Pez,Senior,Pequeño,Accesorios,Especializado,Medio,48.95,Red Captura Peces recomendado para pez senior.
+196,Campana Natural,Marca Especializada,Ave,Cachorro,Pequeño,Accesorios,Especializado,Medio,49.16,Campana Natural recomendado para ave cachorro.
+197,Tubo Conexion Jaula,Marca Especializada,Hamster,Adulto,Pequeño,Accesorios,Especializado,Medio,49.37,Tubo Conexion Jaula recomendado para hamster adulto.
+198,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,49.58,Bebedero Automatico recomendado para conejo senior.
+199,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,49.79,Protector Almohadillas recomendado para perro cachorro.
+200,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,50.0,Cepillo Pelo Largo recomendado para gato adulto.
