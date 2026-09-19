@@ -39,9 +39,3 @@ PetShop
 - Select the type of pet and age from the dropdown menus.
 - Choose any recent purchases from the multi-select box.
 - Click the "Generate Recommendations" button to view the top 10 recommended products along with their scores.
-
-## Contributing
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
