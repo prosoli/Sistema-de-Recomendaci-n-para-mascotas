@@ -13,6 +13,8 @@ except ModuleNotFoundError:
     # Compatible con el archivo actualmente abierto: recomendacion.py
     from recomendacion import recomendar
 
+from chatbot import render_chatbot
+
 
 ruta_catalogo = Path(__file__).parent / "productos.csv"
 tipos_mascota = (
@@ -216,3 +218,5 @@ else:
     )
 
 st.markdown('<div class="footer">Petly · Recomendaciones simples para cuidar mejor a quienes más quieres.</div>', unsafe_allow_html=True) 
+
+render_chatbot()
