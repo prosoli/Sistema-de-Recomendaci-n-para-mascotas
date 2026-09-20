@@ -1,30 +1,34 @@
+"""Chatbot guiado que reutiliza el recomendador de contenido."""
+
+from __future__ import annotations
+
 import re
 import unicodedata
+from pathlib import Path
 
 import streamlit as st
 
-try:
-    from recomendador import recomendar
-except ModuleNotFoundError:
-    from recomendacion import recomendar
+from recomendacion import recomendar
 
 
 TIPOS_MASCOTA = {
     "perro": "Perro",
     "gato": "Gato",
     "ave": "Ave",
+    "pajaro": "Ave",
     "conejo": "Conejo",
     "pez": "Pez",
+    "peces": "Pez",
     "hamster": "Hamster",
-    "reptil": "Reptil",
 }
-
-EDADES = {
-    "cachorro": "Cachorro",
-    "adulto": "Adulto",
-    "senior": "Senior",
+EDADES = {"cachorro": "Cachorro", "adulto": "Adulto", "senior": "Senior"}
+TAMANOS = {
+    "pequeno": "Pequeño",
+    "pequena": "Pequeño",
+    "mediano": "Mediano",
+    "mediana": "Mediano",
+    "grande": "Grande",
 }
-
 CATEGORIAS = {
     "alimentacion": "Alimentacion",
     "alimento": "Alimentacion",
@@ -39,182 +43,126 @@ CATEGORIAS = {
     "salud": "Salud",
     "medicina": "Salud",
 }
+AVATAR_MILO = str(Path(__file__).parent / "assets" / "petly-logo.png")
 
 
-def _normalizar(texto):
+def _colones(valor: float) -> str:
+    return f"₡{valor:,.0f}".replace(",", ".")
+
+
+def _normalizar(texto: str) -> str:
     texto = unicodedata.normalize("NFD", texto.lower())
-    return "".join(
-        caracter for caracter in texto
-        if unicodedata.category(caracter) != "Mn"
-    )
+    return "".join(c for c in texto if unicodedata.category(c) != "Mn")
 
 
-def _extraer_datos(texto, perfil):
-    texto_normalizado = _normalizar(texto)
+def _contiene(texto: str, palabra: str) -> bool:
+    return bool(re.search(rf"\b{re.escape(palabra)}\b", texto))
 
+
+def extraer_datos(texto: str, perfil: dict) -> dict:
+    """Actualiza y devuelve el perfil con las entidades reconocidas."""
+    normalizado = _normalizar(texto)
     for clave, valor in TIPOS_MASCOTA.items():
-        if re.search(rf"\b{re.escape(clave)}\b", texto_normalizado):
+        if _contiene(normalizado, clave):
             perfil["tipo_mascota"] = valor
             break
-
     for clave, valor in EDADES.items():
-        if re.search(rf"\b{re.escape(clave)}\b", texto_normalizado):
+        if _contiene(normalizado, clave):
             perfil["edad"] = valor
+            break
+    for clave, valor in TAMANOS.items():
+        if _contiene(normalizado, clave):
+            perfil["tamano"] = valor
             break
 
     categorias = set(perfil.get("compras_previas", []))
+    encontro_categoria = False
     for clave, valor in CATEGORIAS.items():
-        if re.search(rf"\b{re.escape(clave)}\b", texto_normalizado):
+        if _contiene(normalizado, clave):
             categorias.add(valor)
+            encontro_categoria = True
+
+    sin_compras = any(
+        frase in normalizado
+        for frase in ("ninguna", "ninguno", "no he comprado", "no compre", "nada")
+    )
+    if sin_compras:
+        categorias.clear()
+        perfil["compras_confirmadas"] = True
+    elif encontro_categoria:
+        perfil["compras_confirmadas"] = True
     perfil["compras_previas"] = sorted(categorias)
+    return perfil
 
 
-def _respuesta_para_perfil(perfil):
+def respuesta_para_perfil(perfil: dict) -> str:
     if not perfil.get("tipo_mascota"):
-        return (
-            "¡Hola! Soy PetMatch Assistant 🐾.\n\n"
-            "Te ayudaré a encontrar productos ideales para tu mascota.\n\n"
-            "Primero dime qué mascota tienes. Por ejemplo: "
-            "'Tengo un perro'."
-        )
-
+        return "¡Hola! Soy **Milo, tu asesor Petly** 🐾. ¿Qué mascota tienes?"
     if not perfil.get("edad"):
         return (
-            f"Perfecto 🐾. Entendí que tienes un {perfil['tipo_mascota'].lower()}.\n\n"
-            "¿Qué edad tiene tu mascota? Puedes responder: cachorro, adulto o senior."
+            f"Entendí que tienes un **{perfil['tipo_mascota'].lower()}**. "
+            "¿Es cachorro, adulto o senior?"
         )
-
-    if "compras_confirmadas" not in perfil:
+    if not perfil.get("compras_confirmadas"):
         return (
-            f"Excelente. Tu mascota es un {perfil['tipo_mascota'].lower()} "
-            f"{perfil['edad'].lower()}.\n\n"
-            "¿Has comprado algún producto anteriormente? Puedes escribir categorías "
-            "como alimentación, juguetes, higiene, accesorios o salud. "
-            "Si no has comprado nada, escribe 'ninguna'."
+            "¿Qué categorías has comprado recientemente? Puedes mencionar "
+            "alimentación, juguetes, higiene, accesorios o salud. Si no has "
+            "comprado nada, responde **ninguna**."
         )
 
-    recomendaciones = recomendar(
+    resultados = recomendar(
         perfil["tipo_mascota"],
         perfil["edad"],
-        perfil["compras_previas"],
+        perfil.get("compras_previas", []),
+        tamano=perfil.get("tamano"),
+        limite=10,
     )
-    perfil["recomendaciones"] = recomendaciones
-
-    resumen_compras = ", ".join(perfil["compras_previas"]) or "ninguna categoría"
+    perfil["recomendaciones"] = resultados
+    compras = ", ".join(perfil.get("compras_previas", [])) or "sin compras anteriores"
     respuesta = (
-        "Según la información que me diste:\n\n"
-        f"🐾 Tienes un {perfil['tipo_mascota'].lower()} {perfil['edad'].lower()}.\n"
-        f"Tus compras anteriores indican interés en {resumen_compras.lower()}.\n\n"
+        f"Preparé **{len(resultados)} recomendaciones** para tu "
+        f"{perfil['tipo_mascota'].lower()} {perfil['edad'].lower()}, considerando "
+        f"{compras.lower()}:\n\n"
     )
-
-    if not recomendaciones:
-        return respuesta + (
-            "No encontré productos compatibles con esa combinación en el catálogo."
-        )
-
-    respuesta += "Encontré estos productos recomendados:\n\n"
-    for indice, recomendacion in enumerate(recomendaciones, start=1):
-        explicacion = recomendacion.get(
-            "explicacion",
-            "Coincide con el tipo y la edad seleccionados.",
-        )
+    for indice, item in enumerate(resultados, start=1):
         respuesta += (
-            f"{indice}. {recomendacion['producto']} "
-            f"(puntaje: {recomendacion['puntaje']})\n"
-            f"   ¿Por qué? {explicacion}\n"
+            f"{indice}. **{item['producto']}** · {_colones(item['precio'])} · "
+            f"{item['puntaje']}%\n   {item['explicacion']}\n"
         )
     return respuesta
 
 
-def render_chatbot():
-    """Renderiza el asistente de compra basado en reglas dentro de Streamlit."""
-    if "chat_abierto" not in st.session_state:
-        st.session_state.chat_abierto = False
-    if "chat_mensajes" not in st.session_state:
-        st.session_state.chat_mensajes = []
-    if "chat_perfil" not in st.session_state:
-        st.session_state.chat_perfil = {"compras_previas": []}
+def _reiniciar_chat() -> None:
+    st.session_state.chat_mensajes = []
+    st.session_state.chat_perfil = {"compras_previas": []}
 
-    st.markdown(
-        """
-        <style>
-            .chat-launcher ~ div[data-testid="stButton"] button,
-            .chat-launcher + div[data-testid="stButton"] button {
-                position: fixed;
-                right: 1.5rem;
-                bottom: 1.5rem;
-                z-index: 999;
-                width: 3.5rem;
-                height: 3.5rem;
-                border-radius: 50%;
-                background: #e8784f;
-                color: white;
-                border: 0;
-                font-size: 1.35rem;
-                box-shadow: 0 8px 22px rgba(80, 65, 55, .22);
-            }
-            .chat-panel {
-                background: #fffdf9;
-                border: 1px solid #e9e5dc;
-                border-radius: 18px;
-                padding: 1rem;
-                margin: 1.5rem 0;
-                box-shadow: 0 10px 26px rgba(44, 55, 51, .08);
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
 
-    st.markdown('<div class="chat-launcher">', unsafe_allow_html=True)
-    if st.button("🐾", key="chat_toggle", help="Abrir PetMatch Assistant"):
-        st.session_state.chat_abierto = not st.session_state.chat_abierto
-    st.markdown("</div>", unsafe_allow_html=True)
+def render_chatbot() -> None:
+    """Renderiza un asistente conversacional determinista y explicable."""
+    st.session_state.setdefault("chat_mensajes", [])
+    st.session_state.setdefault("chat_perfil", {"compras_previas": []})
 
-    if not st.session_state.chat_abierto:
-        return
+    cabecera, accion = st.columns([5, 1])
+    with cabecera:
+        st.subheader("Milo · asesor de tienda")
+        st.caption("Cuéntame sobre tu mascota; completaré su perfil paso a paso.")
+    with accion:
+        st.button("Nueva charla", key="reiniciar_chat", on_click=_reiniciar_chat)
 
-    with st.container():
-        st.markdown('<div class="chat-panel">', unsafe_allow_html=True)
-        st.subheader("PetMatch Assistant 🐾")
-        st.caption(
-            "Puedes preguntarme: 'Tengo un gato senior', "
-            "'Tengo un perro cachorro' o 'Compré alimento'."
+    if not st.session_state.chat_mensajes:
+        st.session_state.chat_mensajes.append(
+            {"rol": "assistant", "contenido": respuesta_para_perfil(st.session_state.chat_perfil)}
         )
 
-        if not st.session_state.chat_mensajes:
-            mensaje_inicial = _respuesta_para_perfil(st.session_state.chat_perfil)
-            st.session_state.chat_mensajes.append(
-                {"rol": "assistant", "contenido": mensaje_inicial}
-            )
+    for mensaje in st.session_state.chat_mensajes:
+        avatar = AVATAR_MILO if mensaje["rol"] == "assistant" else "🐾"
+        with st.chat_message(mensaje["rol"], avatar=avatar):
+            st.markdown(mensaje["contenido"])
 
-        for mensaje in st.session_state.chat_mensajes:
-            with st.chat_message(mensaje["rol"]):
-                st.markdown(mensaje["contenido"])
-
-        entrada = st.chat_input("Escribe aquí tu respuesta...", key="chat_input")
-        if entrada:
-            st.session_state.chat_mensajes.append(
-                {"rol": "user", "contenido": entrada}
-            )
-            perfil = st.session_state.chat_perfil
-            texto_normalizado = _normalizar(entrada)
-            _extraer_datos(entrada, perfil)
-
-            compras_mencionadas = any(
-                palabra in texto_normalizado
-                for palabra in ("ninguna", "ninguno", "no he", "no tengo")
-            ) or bool(perfil["compras_previas"])
-
-            if compras_mencionadas:
-                perfil["compras_previas"] = []
-                _extraer_datos(entrada, perfil)
-                perfil["compras_confirmadas"] = True
-
-            respuesta = _respuesta_para_perfil(perfil)
-            st.session_state.chat_mensajes.append(
-                {"rol": "assistant", "contenido": respuesta}
-            )
-            st.rerun()
-
-        st.markdown("</div>", unsafe_allow_html=True)
+    entrada = st.chat_input("Escribe aquí… por ejemplo: gato senior, compré salud", key="chat_input")
+    if entrada:
+        st.session_state.chat_mensajes.append({"rol": "user", "contenido": entrada})
+        perfil = extraer_datos(entrada, st.session_state.chat_perfil)
+        respuesta = respuesta_para_perfil(perfil)
+        st.session_state.chat_mensajes.append({"rol": "assistant", "contenido": respuesta})
+        st.rerun()

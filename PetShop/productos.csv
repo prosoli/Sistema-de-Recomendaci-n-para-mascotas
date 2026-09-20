@@ -30,7 +30,7 @@ id_producto,nombre,marca,tipo_mascota,edad_recomendada,tamano,categoria,subcateg
 29,Juguete Ratón Interactivo,PetSafe,Gato,Adulto,Pequeño,Juguetes,Especializado,Medio,15.73,Juguete Ratón Interactivo diseñado para gato en etapa adulto.
 30,Pasta Dental Felina,Virbac,Gato,Adulto,Pequeño,Salud,Especializado,Alto,16.1,Pasta Dental Felina diseñado para gato en etapa adulto.
 31,Royal Canin Ageing 12+ Cat,Royal Canin,Gato,Senior,Pequeño,Alimentacion,Especializado,Medio,16.47,Royal Canin Ageing 12+ Cat diseñado para gato en etapa senior.
-32,Hill's Senior Cat Food,Hill's,Gato,Senior,Pequeño,Alimentacion,Especializado,Alto,16.84,Hill's Senior Cat Food diseñado para gato en etapa senior.
+32,Pro Plan Senior 7+ Cat 3 kg,Purina,Gato,Senior,Pequeño,Alimentacion,Especializado,Alto,19.95,Alimento completo para gatos de 7 años o más disponible en comercios de Costa Rica.
 33,Suplemento Omega 3 Felino,Nutrivet,Gato,Senior,Pequeño,Salud,Especializado,Medio,17.21,Suplemento Omega 3 Felino diseñado para gato en etapa senior.
 34,Cama Felina Ortopedica,Petmate,Gato,Senior,Pequeño,Accesorios,Especializado,Alto,17.58,Cama Felina Ortopedica diseñado para gato en etapa senior.
 35,Arena Premium Senior,Ever Clean,Gato,Senior,Pequeño,Higiene,Especializado,Medio,17.95,Arena Premium Senior diseñado para gato en etapa senior.
@@ -199,3 +199,8 @@ id_producto,nombre,marca,tipo_mascota,edad_recomendada,tamano,categoria,subcateg
 198,Bebedero Automatico,Marca Especializada,Conejo,Senior,Pequeño,Accesorios,Especializado,Medio,49.58,Bebedero Automatico recomendado para conejo senior.
 199,Protector Almohadillas,Marca Especializada,Perro,Cachorro,Mediano,Accesorios,Especializado,Medio,49.79,Protector Almohadillas recomendado para perro cachorro.
 200,Cepillo Pelo Largo,Marca Especializada,Gato,Adulto,Pequeño,Accesorios,Especializado,Medio,50.0,Cepillo Pelo Largo recomendado para gato adulto.
+201,Transportadora Ventilada Universal,Petly,Ave,Adulto,Pequeño,Accesorios,Uso general,Medio,28.9,Transportadora ventilada segura para aves de cualquier etapa.
+202,Kit Enriquecimiento Natural,Petly,Conejo,Adulto,Pequeño,Juguetes,Uso general,Medio,22.5,Kit de enriquecimiento y exploración para conejos de cualquier etapa.
+203,Set de Túneles Modulares,Petly,Hamster,Adulto,Pequeño,Juguetes,Uso general,Medio,19.9,Set modular para actividad y enriquecimiento de hámsteres de cualquier etapa.
+204,Dispensador Portátil de Agua,Petly,Perro,Todas las edades,Mediano,Accesorios,Uso general,Medio,12.9,Dispensador portátil para paseos apto para perros de cualquier etapa.
+205,Tazón Cerámico Antivuelco,Petly,Conejo,Todas las edades,Pequeño,Accesorios,Uso general,Medio,10.9,Tazón estable y lavable para conejos de cualquier etapa.

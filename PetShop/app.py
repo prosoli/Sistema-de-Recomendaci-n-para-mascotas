@@ -1,222 +1,315 @@
-from pathlib import Path
-import os
+"""Interfaz web de Petly."""
 
-import pandas as pd
+import base64
+from html import escape
+from pathlib import Path
+
 import streamlit as st
 
-# Permite encontrar productos.csv aunque la aplicación se ejecute desde otra carpeta
-os.chdir(Path(__file__).parent)
-
-try:
-    from recomendador import recomendar
-except ModuleNotFoundError:
-    # Compatible con el archivo actualmente abierto: recomendacion.py
-    from recomendacion import recomendar
-
 from chatbot import render_chatbot
+from recomendacion import cargar_catalogo, recomendar
 
 
-ruta_catalogo = Path(__file__).parent / "productos.csv"
-tipos_mascota = (
-    pd.read_csv(ruta_catalogo)["tipo_mascota"]
-    .dropna()
-    .astype(str)
-    .str.strip()
-    .drop_duplicates()
-    .tolist()
-)
-
+BASE_DIR = Path(__file__).parent
+LOGO_PATH = BASE_DIR / "assets" / "petly-logo.png"
 
 st.set_page_config(
-    page_title="Petly | Recomendaciones para mascotas",
-    page_icon="🐾",
+    page_title="Petly · Una cesta hecha para ellos",
+    page_icon=str(LOGO_PATH),
     layout="wide",
     initial_sidebar_state="collapsed",
 )
 
+
+@st.cache_data
+def datos_catalogo():
+    return cargar_catalogo()
+
+
+def imagen_embebida(ruta: Path) -> str:
+    return base64.b64encode(ruta.read_bytes()).decode("ascii")
+
+
+catalogo = datos_catalogo()
+logo_base64 = imagen_embebida(LOGO_PATH)
+IMAGENES_CATEGORIA = {
+    "Alimentacion": imagen_embebida(BASE_DIR / "assets" / "products" / "alimentacion.webp"),
+    "Juguetes": imagen_embebida(BASE_DIR / "assets" / "products" / "juguetes.webp"),
+    "Higiene": imagen_embebida(BASE_DIR / "assets" / "products" / "higiene.webp"),
+    "Accesorios": imagen_embebida(BASE_DIR / "assets" / "products" / "accesorios.webp"),
+    "Salud": imagen_embebida(BASE_DIR / "assets" / "products" / "salud.webp"),
+}
+orden_tipos = ["Perro", "Gato", "Ave", "Conejo", "Hamster", "Pez"]
+tipos_disponibles = catalogo["tipo_mascota"].dropna().unique().tolist()
+tipos = [tipo for tipo in orden_tipos if tipo in tipos_disponibles]
+tamanos = sorted(catalogo["tamano"].dropna().unique().tolist())
+categorias = sorted(catalogo["categoria"].dropna().unique().tolist())
+niveles_precio = sorted(catalogo["nivel_precio"].dropna().unique().tolist())
+
+ICONOS = {
+    "Alimentacion": "🥣",
+    "Juguetes": "🎾",
+    "Higiene": "🫧",
+    "Accesorios": "🧣",
+    "Salud": "✚",
+}
+COLORES = {
+    "Alimentacion": "#F7C96E",
+    "Juguetes": "#EF8B6B",
+    "Higiene": "#9ED7CB",
+    "Accesorios": "#B9A7D6",
+    "Salud": "#89B8A5",
+}
+PRODUCTOS_VERIFICADOS = {
+    "Purina Pro Plan Puppy Razas Medianas": {
+        "imagen": "https://petshop2gocr.com/wp-content/uploads/7501072210678_7-300x300.jpg",
+        "fuente": "https://petshop2gocr.com/producto/pro-plan-cachorro-raza-mediana-optistart/",
+        "tienda": "Pet Shop 2 Go CR",
+    },
+    "Pro Plan Senior 7+ Cat 3 kg": {
+        "imagen": "https://petshop2gocr.com/wp-content/uploads/Diseno-sin-titulo-2025-09-23T175225.807-300x300.png",
+        "fuente": "https://petshop2gocr.com/producto/pro-plan-senior-7-cat-3-kg/",
+        "tienda": "Pet Shop 2 Go CR",
+    },
+}
+
+
+def colones(valor: float) -> str:
+    return f"₡{valor:,.0f}".replace(",", ".")
+
+
+def visual_producto(item: dict, icono: str) -> str:
+    verificado = PRODUCTOS_VERIFICADOS.get(item["producto"])
+    if not verificado:
+        imagen = IMAGENES_CATEGORIA.get(item["categoria"], "")
+        return (
+            f'<div class="product-visual illustrative"><img src="data:image/webp;base64,{imagen}" '
+            f'alt="Imagen ilustrativa de {escape(item["categoria"])}">'
+            '<span class="photo-note">Imagen ilustrativa</span></div>'
+        )
+    imagen = escape(verificado["imagen"], quote=True)
+    fuente = escape(verificado["fuente"], quote=True)
+    tienda = escape(verificado["tienda"])
+    return (
+        f'<div class="product-visual verified"><img src="{imagen}" alt="{escape(item["producto"])}">'
+        f'<a href="{fuente}" target="_blank" rel="noopener">Foto y precio: {tienda} ↗</a></div>'
+    )
+
 st.markdown(
     """
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
-
-        :root {
-            --ink: #263238;
-            --muted: #6d7b78;
-            --cream: #fbf8f2;
-            --surface: #ffffff;
-            --line: #e9e5dc;
-            --orange: #e8784f;
-            --orange-dark: #c95f3d;
-            --sage: #dfece3;
-            --sage-dark: #547363;
-            --blue: #e6f0f4;
-        }
-
-        .stApp {
-            background: var(--cream);
-            color: var(--ink);
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        [data-testid="stHeader"] { background: transparent; }
-        .block-container { max-width: 1120px; padding: 2.5rem 2rem 4rem; }
-        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; color: var(--ink); }
-        h2 { font-size: 1.35rem; margin: 0; }
-        p { color: var(--muted); }
-
-        .brand-row { display: flex; align-items: center; gap: .65rem; margin-bottom: 2rem; }
-        .brand-mark { background: var(--orange); color: white; border-radius: 12px; width: 38px; height: 38px; display: grid; place-items: center; font-size: 1.2rem; }
-        .brand-name { color: var(--ink); font-weight: 800; font-size: 1.05rem; letter-spacing: -.02em; }
-
-        .hero { background: linear-gradient(115deg, #f2ded0 0%, #f7e9db 52%, #e2eee6 100%); border: 1px solid rgba(255,255,255,.7); border-radius: 24px; padding: 2.7rem 3rem; margin-bottom: 1.35rem; position: relative; overflow: hidden; }
-        .hero:after { content: ''; position: absolute; width: 190px; height: 190px; border-radius: 50%; background: rgba(255,255,255,.24); right: 7%; top: -65px; }
-        .eyebrow { color: var(--orange-dark); font-size: .76rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .75rem; }
-        .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -.06em; line-height: 1; margin: 0 0 .8rem; max-width: 680px; }
-        .hero p { color: #52605d; font-size: 1.05rem; margin: 0; max-width: 540px; line-height: 1.6; }
-
-        .section-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 1.45rem 1.55rem 1.15rem; margin: 1.25rem 0 1.8rem; box-shadow: 0 8px 24px rgba(44, 55, 51, .04); }
-        .section-title { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-        .section-kicker { color: var(--muted); font-size: .85rem; margin: .25rem 0 0; }
-        label { color: var(--ink) !important; font-weight: 600 !important; font-size: .88rem !important; }
-        div[data-baseweb="select"] > div, div[data-baseweb="input"] > div { border-color: var(--line); border-radius: 10px; background: #fff; }
-        div[data-baseweb="select"] > div:focus-within, div[data-baseweb="input"] > div:focus-within { border-color: var(--orange); box-shadow: 0 0 0 1px var(--orange); }
-
-        div.stButton { display: flex; justify-content: center; margin-top: .35rem; }
-        div.stButton > button { width: auto; min-width: 245px; border: 0; border-radius: 11px; background: var(--orange); color: white; font-weight: 700; padding: .72rem 1.35rem; transition: all .2s ease; }
-        div.stButton > button:hover { background: var(--orange-dark); color: white; transform: translateY(-1px); }
-
-        .results-head { display: flex; align-items: end; justify-content: space-between; margin: .4rem 0 1rem; border-bottom: 1px solid var(--line); padding-bottom: .85rem; }
-        .results-count { color: var(--muted); font-size: .85rem; }
-        .product-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.2rem; height: 100%; box-shadow: 0 7px 20px rgba(44, 55, 51, .045); }
-        .product-top { display: flex; justify-content: space-between; gap: .75rem; align-items: start; margin-bottom: 1rem; }
-        .product-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: var(--blue); color: #50717b; font-size: 1.25rem; }
-        .product-card h3 { font-size: 1.05rem; margin: 0 0 .25rem; }
-        .product-meta { color: var(--muted); font-size: .82rem; margin: 0; }
-        .compatibility { background: var(--sage); color: var(--sage-dark); border-radius: 999px; padding: .35rem .6rem; font-weight: 700; font-size: .78rem; white-space: nowrap; }
-        .product-details { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: .8rem 0; margin-bottom: .9rem; }
-        .detail-label { display: block; color: var(--muted); font-size: .75rem; margin-bottom: .15rem; }
-        .detail-value { color: var(--ink); font-weight: 700; font-size: .88rem; }
-        .reason-title { color: var(--ink); font-size: .82rem; font-weight: 700; margin-bottom: .4rem; }
-        .reason { color: var(--muted); font-size: .8rem; line-height: 1.55; margin: 0; }
-        .empty-state { text-align: center; background: var(--surface); border: 1px dashed #d7d2c6; border-radius: 16px; padding: 2rem; }
-        .empty-state h3 { font-size: 1.05rem; margin: 0 0 .35rem; }
-        .empty-state p { margin: 0; font-size: .9rem; }
-        .footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem; text-align: center; margin-top: 3rem; padding-top: 1.2rem; }
-
-        @media (max-width: 640px) {
-            .block-container { padding: 1.4rem 1rem 3rem; }
-            .hero { padding: 2rem 1.35rem; }
-            .hero h1 { font-size: 2.4rem; }
-            .section-card { padding: 1.1rem; }
-            .results-head { align-items: start; flex-direction: column; gap: .25rem; }
-        }
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
+    :root { --forest:#123d33; --forest-2:#205f4d; --coral:#f47755; --apricot:#ffd2b5; --cream:#faf7ef; --paper:#fffdf8; --ink:#19352e; --muted:#687b75; --line:#dedfd6; --plum:#67465f; }
+    .stApp { background:var(--cream); color:var(--ink); font-family:'DM Sans',sans-serif; }
+    [data-testid="stHeader"] { background:transparent; height:1.2rem; }
+    [data-testid="stToolbar"], #MainMenu { visibility:hidden; }
+    .block-container { max-width:1180px; padding:1.3rem 2rem 4rem; }
+    h1,h2,h3 { font-family:'Fraunces',serif; color:var(--ink); letter-spacing:-.025em; }
+    p { color:var(--muted); }
+    .nav { display:flex; justify-content:space-between; align-items:center; padding:.4rem 0 1.1rem; }
+    .brand-lockup { display:flex; align-items:center; gap:.72rem; }
+    .brand-lockup img { width:54px; height:54px; object-fit:contain; }
+    .wordmark { font-family:'Fraunces'; font-weight:700; font-size:1.65rem; line-height:1; color:var(--forest); }
+    .wordmark small { display:block; font-family:'DM Sans'; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--coral); margin-top:.28rem; }
+    .nav-note { color:var(--forest-2); font-weight:700; font-size:.78rem; border-bottom:2px solid var(--apricot); padding-bottom:.2rem; }
+    .hero { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(280px,.6fr); min-height:440px; border-radius:34px 34px 110px 34px; overflow:hidden; background:var(--forest); position:relative; }
+    .hero-copy { padding:4rem 2rem 3.5rem 4rem; position:relative; z-index:2; }
+    .hero-kicker { color:#ffb99e; font-size:.75rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin:0 0 .9rem; }
+    .hero h1 { color:#fff8e9; font-size:clamp(3rem,6vw,5.3rem); line-height:.93; max-width:720px; margin:0 0 1.2rem; }
+    .hero h1 em { color:#ff9b78; font-style:italic; }
+    .hero-copy>p { color:#d9e6df; font-size:1.06rem; line-height:1.65; max-width:610px; margin:0 0 1.5rem; }
+    .promise-row { display:flex; gap:.55rem; flex-wrap:wrap; }
+    .promise { color:#e8f1ed; border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.07); padding:.45rem .7rem; border-radius:999px; font-size:.75rem; }
+    .hero-art { display:flex; align-items:center; justify-content:center; background:var(--apricot); border-radius:50% 0 0 50%; margin:-3rem -2rem -3rem 0; }
+    .hero-art img { width:min(330px,88%); transform:rotate(2deg); filter:drop-shadow(0 18px 18px rgba(37,43,33,.14)); }
+    .trust-strip { display:flex; justify-content:center; gap:2.2rem; flex-wrap:wrap; padding:1.15rem; color:var(--muted); font-size:.78rem; }
+    .trust-strip b { color:var(--forest); font-size:.92rem; }
+    .section-copy { display:grid; grid-template-columns:110px 1fr; gap:1.5rem; align-items:start; margin:2.5rem 0 1.2rem; }
+    .section-number { color:var(--coral); font-family:'Fraunces'; font-size:3rem; line-height:1; }
+    .section-copy h2 { margin:0 0 .4rem; font-size:2rem; }
+    .section-copy p { margin:0; max-width:650px; }
+    div[data-testid="stTabs"] { margin-top:.2rem; }
+    div[data-testid="stTabs"] [role="tablist"] { background:#efeade; border-radius:999px; padding:.35rem; gap:.25rem; width:max-content; }
+    div[data-testid="stTabs"] [role="tab"] { color:#66756f!important; opacity:1!important; border-radius:999px; padding:.55rem 1rem; }
+    div[data-testid="stTabs"] [role="tab"] * { color:#66756f!important; opacity:1!important; font-weight:700; }
+    div[data-testid="stTabs"] [role="tab"][aria-selected="true"] { background:var(--forest); }
+    div[data-testid="stTabs"] [role="tab"][aria-selected="true"] * { color:#fff!important; }
+    div[data-testid="stTabs"] [data-baseweb="tab-highlight"], div[data-testid="stTabs"] [data-baseweb="tab-border"] { display:none; }
+    div[data-testid="stForm"] { background:var(--paper); border:1px solid var(--line)!important; border-radius:28px!important; padding:1.4rem 1.55rem .9rem!important; margin:1.2rem 0 1.5rem; box-shadow:0 15px 45px rgba(31,63,53,.07); }
+    div[data-testid="stForm"] h3 { margin:0!important; font-size:1.35rem!important; line-height:1.25!important; white-space:normal!important; word-break:normal!important; }
+    div[data-testid="stForm"] [data-testid="stCaptionContainer"] { margin-top:-.45rem; margin-bottom:.35rem; }
+    label { color:var(--ink)!important; font-weight:700!important; font-size:.8rem!important; }
+    div[data-baseweb="select"]>div { border:1px solid var(--line); border-radius:12px; background:#fff; min-height:46px; }
+    div[data-testid="stFormSubmitButton"]>button { border:0; border-radius:13px; background:var(--coral); color:white; font-weight:800; padding:.78rem 1.2rem; box-shadow:0 7px 0 #c84f32; transition:.15s; }
+    div[data-testid="stFormSubmitButton"]>button:hover { background:#df6242; color:white; transform:translateY(2px); box-shadow:0 5px 0 #b6462d; }
+    .basket-head { display:flex; justify-content:space-between; align-items:end; margin:2.8rem 0 1rem; }
+    .basket-head h2 { margin:0; font-size:2.15rem; }
+    .basket-head p { margin:.25rem 0 0; }
+    .basket-count { color:var(--forest); background:#e3f0ea; border-radius:999px; padding:.5rem .75rem; font-size:.75rem; font-weight:800; }
+    .product { --accent:#9ed7cb; background:var(--paper); border:1px solid var(--line); border-radius:26px 26px 52px 26px; padding:1.25rem; min-height:510px; box-shadow:0 10px 30px rgba(31,63,53,.055); margin-bottom:1rem; position:relative; overflow:hidden; }
+    .product:before { content:''; position:absolute; width:110px; height:110px; border-radius:50%; background:var(--accent); opacity:.2; right:-38px; top:-42px; }
+    .product-top { display:flex; justify-content:space-between; align-items:start; position:relative; }
+    .product-index { font-family:'Fraunces'; color:var(--accent); font-size:2rem; font-weight:700; }
+    .category-icon { width:44px; height:44px; display:grid; place-items:center; border-radius:14px; background:var(--accent); font-size:1.2rem; }
+    .product-visual { height:150px; margin:.55rem 0 .8rem; border-radius:18px; background:#fff; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; border:1px solid #edece5; }
+    .product-visual img { width:100%; height:100%; object-fit:cover; }
+    .product-visual.verified img { object-fit:contain; mix-blend-mode:multiply; }
+    .product-visual a { position:absolute; right:.55rem; bottom:.45rem; padding:.26rem .45rem; border-radius:999px; color:#fff!important; background:rgba(18,61,51,.88); font-size:.59rem; text-decoration:none; }
+    .photo-note { position:absolute; left:.55rem; bottom:.45rem; padding:.26rem .45rem; border-radius:999px; color:#fff; background:rgba(18,61,51,.78); font-size:.58rem; font-weight:700; }
+    .product h3 { font-size:1.25rem; line-height:1.15; margin:.7rem 0 .18rem; min-height:2.8rem; }
+    .brand-name { color:var(--muted); font-size:.76rem; text-transform:uppercase; letter-spacing:.08em; }
+    .price-score { display:flex; align-items:center; justify-content:space-between; margin:1rem 0 .65rem; }
+    .price { font-family:'Fraunces'; font-size:1.55rem; color:var(--forest); }
+    .score { color:var(--forest); background:#e7f1ec; border-radius:999px; padding:.34rem .55rem; font-weight:800; font-size:.72rem; }
+    .bar { height:7px; background:#e9ece7; border-radius:8px; overflow:hidden; }
+    .bar span { display:block; height:100%; background:var(--accent); border-radius:8px; }
+    .tags { display:flex; gap:.35rem; flex-wrap:wrap; margin:.75rem 0; }
+    .tag { border:1px solid var(--line); border-radius:999px; padding:.28rem .5rem; font-size:.67rem; color:#566b64; }
+    .description { color:var(--muted); font-size:.78rem; line-height:1.45; margin:.65rem 0 .35rem; }
+    .why { color:#35544b; font-size:.75rem; line-height:1.45; margin:0; }
+    .general { display:inline-block; margin-top:.55rem; color:#9d552f; background:#fff0e7; border-radius:8px; padding:.25rem .45rem; font-size:.68rem; font-weight:700; }
+    div[data-testid="stExpander"] { background:var(--paper); border-color:var(--line); border-radius:18px; }
+    .chat-intro { display:grid; grid-template-columns:90px 1fr; gap:1rem; align-items:center; background:var(--forest); border-radius:26px 26px 70px 26px; padding:1.2rem 1.5rem; margin:1.2rem 0; }
+    .chat-intro img { width:82px; }
+    .chat-intro h3 { color:#fff; margin:0 0 .2rem; font-size:1.45rem; }
+    .chat-intro p { color:#d7e5df; margin:0; font-size:.82rem; }
+    div[data-testid="stChatMessage"] { background:var(--paper); border:1px solid var(--line); border-radius:18px 18px 30px 18px; }
+    div[data-testid="stChatMessage"] p, div[data-testid="stChatMessage"] li, div[data-testid="stChatMessage"] strong { color:var(--ink)!important; }
+    div[data-testid="stChatInput"], div[data-testid="stChatInput"]>div, div[data-testid="stChatInput"] [data-baseweb="base-input"], div[data-testid="stChatInput"] [data-baseweb="textarea"], div[data-testid="stChatInput"] textarea { background:#fff!important; }
+    div[data-testid="stChatInput"] { border:2px solid #d7ddd8!important; border-radius:16px!important; box-shadow:0 8px 24px rgba(18,61,51,.07)!important; }
+    div[data-testid="stChatInput"] textarea, div[data-testid="stChatInput"] textarea:focus { color:#19352e!important; -webkit-text-fill-color:#19352e!important; caret-color:#f47755!important; opacity:1!important; }
+    div[data-testid="stChatInput"] textarea::placeholder { color:#81918c!important; -webkit-text-fill-color:#81918c!important; }
+    div[data-testid="stChatInput"] button { background:var(--coral)!important; color:#fff!important; border-radius:12px!important; }
+    div.stButton>button { border:1px solid var(--forest); border-radius:999px; color:var(--forest); background:transparent; font-weight:700; }
+    div.stButton>button p { color:var(--forest)!important; }
+    .footer { display:flex; justify-content:space-between; gap:1rem; color:var(--muted); border-top:1px solid var(--line); margin-top:2.5rem; padding-top:1.2rem; font-size:.73rem; }
+    @media(max-width:760px){ .block-container{padding:1rem .85rem 3rem}.nav-note{display:none}.hero{grid-template-columns:1fr;border-radius:26px 26px 70px 26px}.hero-copy{padding:2.4rem 1.5rem}.hero-art{display:none}.section-copy{grid-template-columns:55px 1fr}.section-number{font-size:2rem}.trust-strip{gap:.8rem}.basket-head{align-items:start;flex-direction:column}.product{min-height:auto}div[data-testid="stTabs"] [role="tab"]{padding:.45rem .55rem;font-size:.72rem}.footer{flex-direction:column}}
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-
 st.markdown(
-    """
-    <div class="brand-row">
-        <div class="brand-mark">🐾</div>
-        <div class="brand-name">Petly</div>
-    </div>
+    f"""
+    <nav class="nav">
+      <div class="brand-lockup"><img src="data:image/png;base64,{logo_base64}" alt="Logo Petly"><div class="wordmark">Petly<small>pet market</small></div></div>
+      <div class="nav-note">Selecciones pensadas con cariño</div>
+    </nav>
     <section class="hero">
-        <p class="eyebrow">Recomendaciones pensadas para ellos</p>
-        <h1>Encuentra lo que tu mascota necesita.</h1>
-        <p>Cuéntanos un poco sobre ella y descubre productos seleccionados para acompañar cada etapa.</p>
+      <div class="hero-copy">
+        <p class="hero-kicker">Menos búsqueda. Más colitas felices.</p>
+        <h1>Su próxima cosa <em>favorita</em> está aquí.</h1>
+        <p>Cuéntanos cómo es tu compañero y armaremos una cesta con diez productos disponibles o comparables en el mercado de Costa Rica.</p>
+        <div class="promise-row"><span class="promise">✓ Precios en colones</span><span class="promise">✓ 10 productos únicos</span><span class="promise">✓ Te contamos por qué</span></div>
+      </div>
+      <div class="hero-art"><img src="data:image/png;base64,{logo_base64}" alt="Perro y gato de Petly"></div>
     </section>
+    <div class="trust-strip"><span><b>{len(catalogo)}</b> productos curados</span><span><b>🇨🇷</b> mercado costarricense</span><span><b>{len(categorias)}</b> formas de cuidarles</span><span><b>1</b> modelo transparente</span></div>
+    <div class="section-copy"><span class="section-number">01</span><div><h2>¿Cómo quieres comprar hoy?</h2><p>Elige el formulario para ir directo al grano o conversa con Milo, nuestro asesor de tienda. Ambos consultan el mismo catálogo inteligente.</p></div></div>
     """,
     unsafe_allow_html=True,
 )
 
-st.markdown(
-    """
-    <div class="section-card">
-        <div class="section-title">
-            <div>
-                <h2>Cuéntanos sobre tu mascota</h2>
-                <p class="section-kicker">Usaremos estos datos para personalizar la selección.</p>
-            </div>
-        </div>
-    """,
-    unsafe_allow_html=True,
+tab_recomendador, tab_chatbot = st.tabs(
+    ["Armar mi cesta", "Hablar con Milo"]
 )
 
-col1, col2, col3 = st.columns(3)
-with col1:
-    tipo = st.selectbox("Tipo de mascota", tipos_mascota)
-with col2:
-    edad = st.selectbox("Edad", ["Cachorro", "Adulto", "Senior"])
-with col3:
-    compras = st.multiselect(
-        "¿Qué compraste recientemente?",
-        ["Alimentación", "Juguetes", "Higiene", "Accesorios", "Salud"],
-        placeholder="Selecciona una o más opciones",
-    )
+with tab_recomendador:
+    with st.form("perfil_mascota"):
+        st.subheader("🪄 El perfil de tu compañero")
+        st.caption("Cada dato ayuda a afinar la selección.")
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            tipo = st.selectbox("¿Quién te acompaña?", tipos)
+        with col2:
+            edad = st.selectbox("Etapa de vida", ["Cachorro", "Adulto", "Senior"])
+        with col3:
+            tamano_opcion = st.selectbox("Tamaño", ["Sin preferencia", *tamanos])
+        with col4:
+            precio_opcion = st.selectbox("Presupuesto", ["Cualquiera", *niveles_precio])
+        prioridad_col, compras_col = st.columns([1, 2])
+        with prioridad_col:
+            prioridad_opcion = st.selectbox(
+                "Necesidad principal",
+                ["Selección equilibrada", *categorias],
+                help="Tiene más peso que el historial y afina los primeros resultados.",
+            )
+        with compras_col:
+            compras = st.multiselect(
+                "Compras anteriores",
+                categorias,
+                placeholder="Alimento, juguetes, higiene…",
+            )
+        enviado = st.form_submit_button("Armar una cesta para mi mascota →", use_container_width=True)
 
-if st.button("Encontrar productos ideales", type="primary"):
-    recomendaciones = recomendar(tipo, edad, compras)
-    st.session_state["recomendaciones"] = recomendaciones
+    if enviado:
+        st.session_state["recomendaciones"] = recomendar(
+            tipo,
+            edad,
+            compras,
+            tamano=None if tamano_opcion == "Sin preferencia" else tamano_opcion,
+            nivel_precio=None if precio_opcion == "Cualquiera" else precio_opcion,
+            prioridad=None if prioridad_opcion == "Selección equilibrada" else prioridad_opcion,
+            limite=10,
+        )
+        prioridad_texto = "cesta equilibrada" if prioridad_opcion == "Selección equilibrada" else prioridad_opcion.lower()
+        st.session_state["perfil_actual"] = f"{tipo} · {edad} · prioridad: {prioridad_texto}"
 
-st.markdown("</div>", unsafe_allow_html=True)
-
-recomendaciones = st.session_state.get("recomendaciones")
-if recomendaciones is not None:
-    st.markdown(
-        f'<div class="results-head"><h2>Recomendaciones para ti</h2><span class="results-count">{len(recomendaciones)} productos encontrados</span></div>',
-        unsafe_allow_html=True,
-    )
-
-    if recomendaciones:
-        for inicio in range(0, len(recomendaciones), 2):
+    resultados = st.session_state.get("recomendaciones")
+    if resultados:
+        st.markdown(
+            f'<div class="basket-head"><div><h2>Una cesta hecha para ellos</h2><p>{escape(st.session_state.get("perfil_actual", ""))}</p></div><span class="basket-count">{len(resultados)} hallazgos</span></div>',
+            unsafe_allow_html=True,
+        )
+        for inicio in range(0, len(resultados), 2):
             columnas = st.columns(2, gap="medium")
-            for indice, recomendacion in enumerate(recomendaciones[inicio:inicio + 2]):
-                producto = recomendacion.get("producto", "Producto recomendado")
-                puntaje = recomendacion.get("puntaje", 0)
-                marca = recomendacion.get("marca", "Selección PetMatch")
-                categoria = recomendacion.get("categoria", "Recomendado para tu mascota")
-
-                with columnas[indice]:
+            for desplazamiento, (columna, item) in enumerate(zip(columnas, resultados[inicio:inicio + 2])):
+                icono = ICONOS.get(item["categoria"], "🐾")
+                color = COLORES.get(item["categoria"], "#9ED7CB")
+                numero = inicio + desplazamiento + 1
+                etiqueta_general = "" if item["coincidencia_edad"] else '<span class="general">Apto para todas las edades</span>'
+                visual = visual_producto(item, icono)
+                with columna:
                     st.markdown(
                         f"""
-                        <article class="product-card">
-                            <div class="product-top">
-                                <div style="display:flex; gap:.7rem; align-items:center;">
-                                    <div class="product-icon">✦</div>
-                                    <div><h3>{producto}</h3><p class="product-meta">{marca}</p></div>
-                                </div>
-                                <span class="compatibility">{puntaje}% compatible</span>
-                            </div>
-                            <div class="product-details">
-                                <div><span class="detail-label">Categoría</span><span class="detail-value">{categoria}</span></div>
-                            </div>
+                        <article class="product" style="--accent:{color}">
+                          <div class="product-top"><span class="product-index">{numero:02}</span><div class="category-icon">{icono}</div></div>
+                          {visual}
+                          <h3>{escape(item['producto'])}</h3><div class="brand-name">por {escape(item['marca'])}</div>
+                          <div class="price-score"><span class="price">{colones(item['precio'])}</span><span class="score">{item['puntaje']}% afinidad</span></div>
+                          <div class="bar"><span style="width:{item['puntaje']}%"></span></div>
+                          <div class="tags"><span class="tag">{escape(item['categoria'])}</span><span class="tag">{escape(item['edad_recomendada'])}</span><span class="tag">{escape(item['nivel_precio'])}</span></div>
+                          <p class="description">{escape(item['descripcion'])}</p>
+                          <p class="why"><b>Encaja porque:</b> {escape(item['explicacion'].replace('Recomendado porque ', ''))}</p>{etiqueta_general}
                         </article>
                         """,
                         unsafe_allow_html=True,
                     )
-    else:
+
+        st.caption("🇨🇷 Precios de referencia en colones costarricenses. Las fichas con enlace fueron contrastadas con comercios de Costa Rica; los demás valores son estimaciones para este prototipo educativo.")
+
+    with st.expander("Así armamos la cesta · Conoce el modelo"):
         st.markdown(
             """
-            <div class="empty-state">
-                <h3>Aún no encontramos una coincidencia.</h3>
-                <p>Prueba con otra combinación de edad, tipo de mascota o compras recientes.</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
+            Petly convierte tipo, edad, tamaño, prioridad, historial y presupuesto en un vector
+            *one-hot*. Después calcula manualmente la **similitud coseno** entre ese
+            perfil y el vector completo de cada producto. Una segunda etapa de diversidad
+            evita repetir demasiado la misma categoría o marca, quita nombres repetidos
+            y entrega diez. Es un recomendador KNN de contenido construido
+            desde cero; la afinidad es una puntuación explicable, no una probabilidad clínica.
+            """
         )
-else:
+
+with tab_chatbot:
     st.markdown(
-        """
-        <div class="empty-state">
-            <h3>Tu selección personalizada empieza aquí</h3>
-            <p>Completa el perfil de tu mascota para ver productos recomendados.</p>
-        </div>
+        f"""
+        <div class="chat-intro"><img src="data:image/png;base64,{logo_base64}" alt="Milo de Petly"><div><h3>Milo conoce el catálogo de memoria</h3><p>Dile algo como “Tengo un gato senior y suelo comprar productos de salud”. Él construirá el perfil y traerá diez opciones del mismo recomendador.</p></div></div>
         """,
         unsafe_allow_html=True,
     )
+    render_chatbot()
 
-st.markdown('<div class="footer">Petly · Recomendaciones simples para cuidar mejor a quienes más quieres.</div>', unsafe_allow_html=True) 
-
-render_chatbot()
+st.markdown(
+    '<div class="footer"><span>Petly Costa Rica · Productos que hacen sentido para ellos.</span><span>Precios referenciales · Recomendaciones transparentes, nunca consejos veterinarios.</span></div>',
+    unsafe_allow_html=True,
+)
