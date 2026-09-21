@@ -8,6 +8,7 @@ from pathlib import Path
 
 import streamlit as st
 
+from historial import crear_perfil_con_historial, obtener_cliente
 from recomendacion import recomendar
 
 
@@ -97,7 +98,12 @@ def extraer_datos(texto: str, perfil: dict) -> dict:
 
 def respuesta_para_perfil(perfil: dict) -> str:
     if not perfil.get("tipo_mascota"):
-        return "¡Hola! Soy **Milo, tu asesor Petly** 🐾. ¿Qué mascota tienes?"
+        compras = ", ".join(perfil.get("compras_previas", [])) or "sin compras registradas"
+        return (
+            "¡Hola! Soy **Milo, tu asesor Petly** 🐾. "
+            f"La tienda ya cargó tu historial ({compras.lower()}). "
+            "¿Qué mascota tienes?"
+        )
     if not perfil.get("edad"):
         return (
             f"Entendí que tienes un **{perfil['tipo_mascota'].lower()}**. "
@@ -134,18 +140,25 @@ def respuesta_para_perfil(perfil: dict) -> str:
 
 def _reiniciar_chat() -> None:
     st.session_state.chat_mensajes = []
-    st.session_state.chat_perfil = {"compras_previas": []}
+    st.session_state.chat_perfil = crear_perfil_con_historial()
 
 
 def render_chatbot() -> None:
     """Renderiza un asistente conversacional determinista y explicable."""
     st.session_state.setdefault("chat_mensajes", [])
-    st.session_state.setdefault("chat_perfil", {"compras_previas": []})
+    st.session_state.setdefault("chat_perfil", crear_perfil_con_historial())
+    if not st.session_state.chat_perfil.get("cliente_id"):
+        st.session_state.chat_perfil.update(crear_perfil_con_historial())
+    cliente = obtener_cliente(st.session_state.chat_perfil.get("cliente_id", ""))
 
     cabecera, accion = st.columns([5, 1])
     with cabecera:
         st.subheader("Milo · asesor de tienda")
-        st.caption("Cuéntame sobre tu mascota; completaré su perfil paso a paso.")
+        compras = ", ".join(cliente["compras_previas"]) or "sin compras registradas"
+        st.caption(
+            f"Tu historial de compras está cargado para {cliente['id']}: {compras}. "
+            "Cuéntame sobre tu mascota."
+        )
     with accion:
         st.button("Nueva charla", key="reiniciar_chat", on_click=_reiniciar_chat)
 
@@ -159,7 +172,7 @@ def render_chatbot() -> None:
         with st.chat_message(mensaje["rol"], avatar=avatar):
             st.markdown(mensaje["contenido"])
 
-    entrada = st.chat_input("Escribe aquí… por ejemplo: gato senior, compré salud", key="chat_input")
+    entrada = st.chat_input("Escribe aquí… por ejemplo: tengo un gato senior", key="chat_input")
     if entrada:
         st.session_state.chat_mensajes.append({"rol": "user", "contenido": entrada})
         perfil = extraer_datos(entrada, st.session_state.chat_perfil)

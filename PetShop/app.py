@@ -7,6 +7,7 @@ from pathlib import Path
 import streamlit as st
 
 from chatbot import render_chatbot
+from historial import obtener_cliente
 from recomendacion import cargar_catalogo, recomendar
 
 
@@ -31,6 +32,8 @@ def imagen_embebida(ruta: Path) -> str:
 
 
 catalogo = datos_catalogo()
+cliente_actual = obtener_cliente()
+compras_cliente = cliente_actual["compras_previas"]
 logo_base64 = imagen_embebida(LOGO_PATH)
 IMAGENES_CATEGORIA = {
     "Alimentacion": imagen_embebida(BASE_DIR / "assets" / "products" / "alimentacion.webp"),
@@ -235,10 +238,15 @@ with tab_recomendador:
                 help="Tiene más peso que el historial y afina los primeros resultados.",
             )
         with compras_col:
-            compras = st.multiselect(
-                "Compras anteriores",
-                categorias,
-                placeholder="Alimento, juguetes, higiene…",
+            historial_texto = ", ".join(compras_cliente) or "Sin compras registradas"
+            st.text_input(
+                "Tu historial de compras",
+                value=historial_texto,
+                disabled=True,
+                help=(
+                    f"Cliente identificado: {cliente_actual['id']}. En producción, "
+                    "el historial vendría del sistema de ventas o CRM."
+                ),
             )
         enviado = st.form_submit_button("Armar una cesta para mi mascota →", use_container_width=True)
 
@@ -246,14 +254,17 @@ with tab_recomendador:
         st.session_state["recomendaciones"] = recomendar(
             tipo,
             edad,
-            compras,
+            compras_cliente,
             tamano=None if tamano_opcion == "Sin preferencia" else tamano_opcion,
             nivel_precio=None if precio_opcion == "Cualquiera" else precio_opcion,
             prioridad=None if prioridad_opcion == "Selección equilibrada" else prioridad_opcion,
             limite=10,
         )
         prioridad_texto = "cesta equilibrada" if prioridad_opcion == "Selección equilibrada" else prioridad_opcion.lower()
-        st.session_state["perfil_actual"] = f"{tipo} · {edad} · prioridad: {prioridad_texto}"
+        st.session_state["perfil_actual"] = (
+            f"{tipo} · {edad} · prioridad: {prioridad_texto} · "
+            f"historial: {historial_texto.lower()}"
+        )
 
     resultados = st.session_state.get("recomendaciones")
     if resultados:
@@ -291,7 +302,7 @@ with tab_recomendador:
     with st.expander("Así armamos la cesta · Conoce el modelo"):
         st.markdown(
             """
-            Petly convierte tipo, edad, tamaño, prioridad, historial y presupuesto en un vector
+            Petly convierte tipo, edad, tamaño, prioridad, historial personal de compras y presupuesto en un vector
             *one-hot*. Después calcula manualmente la **similitud coseno** entre ese
             perfil y el vector completo de cada producto. Una segunda etapa de diversidad
             evita repetir demasiado la misma categoría o marca, quita nombres repetidos
@@ -303,7 +314,7 @@ with tab_recomendador:
 with tab_chatbot:
     st.markdown(
         f"""
-        <div class="chat-intro"><img src="data:image/png;base64,{logo_base64}" alt="Milo de Petly"><div><h3>Milo conoce el catálogo de memoria</h3><p>Dile algo como “Tengo un gato senior y suelo comprar productos de salud”. Él construirá el perfil y traerá diez opciones del mismo recomendador.</p></div></div>
+        <div class="chat-intro"><img src="data:image/png;base64,{logo_base64}" alt="Milo de Petly"><div><h3>Milo conoce el catálogo de memoria</h3><p>La tienda ya cargó tu historial. Solo cuéntale a Milo qué mascota tienes y su etapa de vida; él traerá diez opciones del mismo recomendador.</p></div></div>
         """,
         unsafe_allow_html=True,
     )

@@ -24,6 +24,7 @@ otra etapa.
 
 - Diez recomendaciones únicas y explicadas.
 - Perfil por mascota, edad, tamaño, precio y compras previas.
+- Historial de compras recuperado automáticamente desde un registro simulado de la tienda.
 - Prioridad principal y reordenamiento diverso por categoría y marca.
 - Puntaje de afinidad de 0 a 99.
 - Precio, categoría, descripción y motivo de cada resultado.
@@ -67,6 +68,7 @@ python -m unittest discover -s tests -v
 PetShop/
   app.py              Interfaz Streamlit
   chatbot.py          Extracción de datos y conversación
+  historial.py        Registro simulado de compras de la tienda
   recomendacion.py    Modelo de contenido desde cero
   productos.csv       Catálogo de productos
 tests/
@@ -81,3 +83,11 @@ Este es un enfoque de aprendizaje no supervisado basado en contenido. No emplea
 un modelo de lenguaje ni afirma calcular probabilidades clínicas: el porcentaje
 mostrado es una puntuación de afinidad explicable obtenida a partir de la
 similitud entre vectores.
+
+## Supuesto sobre compras anteriores
+
+El prototipo asume que la tienda identifica al cliente y conserva su historial
+en el sistema de ventas, CRM o facturación. Por eso el cliente no selecciona
+manualmente sus compras anteriores. `historial.py` simula esa integración y
+entrega las categorías compradas al formulario y al chatbot. En producción, ese
+módulo se reemplazaría por una consulta a la base de datos de la tienda.
